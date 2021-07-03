@@ -1,4 +1,6 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import "../models/show.dart";
 
 final queryParameters = {
   "start_year": '1972',
@@ -20,9 +22,18 @@ Map<String, String> get headers => {
       'x-rapidapi-host': 'unogsng.p.rapidapi.com'
     };
 
-Future<http.Response> fetchAlbum() async {
+Future<List<Show>> fetchShows() async {
   var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters);
   var response = await http.get(url, headers: headers);
-  print(response.body);
-  return response;
+  Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+  if (response.statusCode == 200) {
+    List<Show> showList = [];
+    for (var show in jsonResponse["results"]) {
+      showList.add(Show.fromJson(show));
+    }
+    return showList;
+  } else {
+    throw Exception("Unable to load shoas from rapid api");
+  }
 }
