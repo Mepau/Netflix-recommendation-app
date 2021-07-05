@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import "../models/show.dart";
+import "../../models/show.dart";
 
 final queryParameters = {
   "start_year": '1972',
