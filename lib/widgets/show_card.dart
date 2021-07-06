@@ -11,74 +11,66 @@ class ShowCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(
+            color: Colors.white70,
+            width: 1,
+          ),
+        ),
+        color: Colors.grey[200],
+        elevation: 4,
         child: Column(
           children: [
             Image.network(show.poster),
-            Text(show.title),
-            Text(show.synopsis),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Text("IMDB Rating"),
+                      Icon(Icons.favorite),
+                      Text(show.imdbrating.toString())
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text("Avg. Rating"),
+                      Icon(Icons.favorite),
+                      Text(show.avgrating.toString())
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(show.title),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(show.synopsis),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class ShowLister extends StatefulWidget {
-  const ShowLister({Key? key}) : super(key: key);
-
-  @override
-  _ShowListerState createState() => _ShowListerState();
-}
-
-class _ShowListerState extends State<ShowLister> {
-  late Future<List<Show>> futureShowList;
-
-  @override
-  void initState() {
-    super.initState();
-    futureShowList = fetchShows();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text("Hello"),
-          ),
-          body: Container(
-            child: FutureBuilder<List<Show>>(
-                future: futureShowList,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    print(snapshot.data![0]);
-                    return ListView(
-                      children: List.generate(
-                        snapshot.data!.length,
-                        (index) => Card(
-                          child: Column(
-                            children: [
-                              Image.network(snapshot.data![index].poster),
-                              Text(snapshot.data![index].title)
-                            ],
-                          ),
-                          //child: ListTile(
-                          //  title: Text(snapshot.data![index].title),
-                          //  leading:
-                          //      Image.network(snapshot.data![index].poster),
-                          //),
-                        ),
-                      ),
-                    );
-                    return Text(snapshot.data![0].title);
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-
-                  // By default, show a loading spinner.
-                  return CircularProgressIndicator();
-                }),
-          )),
     );
   }
 }
