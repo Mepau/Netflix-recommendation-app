@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import "../../models/show.dart";
+import "../../models/genre.dart";
 
 final queryParameters = {
   "start_year": '1972',
@@ -34,6 +35,22 @@ Future<List<Show>> fetchShows() async {
     }
     return showList;
   } else {
-    throw Exception("Unable to load shoas from rapid api");
+    throw Exception("Unable to load shows from rapid api");
+  }
+}
+
+Future<List<Genre>> fetchGenres() async {
+  var url = Uri.https("unogsng.p.rapidapi.com", '/genres');
+  var response = await http.get(url, headers: headers);
+  Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+  if (response.statusCode == 200) {
+    List<Genre> genresList = [];
+    for (var genre in jsonResponse["results"]) {
+      genresList.add(Genre.fromJson(genre));
+    }
+    return genresList;
+  } else {
+    throw Exception("Unable to load genres from rapid api");
   }
 }
