@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import "../../models/show.dart";
 import "../../models/genre.dart";
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final queryParameters = {
   "start_year": '1972',
@@ -19,7 +20,7 @@ final queryParameters = {
 Map<String, String> get headers => {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      'x-rapidapi-key': '9263455e1dmshaef3d2ac8e5d156p1698d5jsn74890100eeae',
+      'x-rapidapi-key': dotenv.env["RAPID_API_KEY"]!,
       'x-rapidapi-host': 'unogsng.p.rapidapi.com'
     };
 
