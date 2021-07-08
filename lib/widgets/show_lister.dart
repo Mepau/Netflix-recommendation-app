@@ -21,33 +21,26 @@ class _ShowListerState extends State<ShowLister> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Hello"),
-        ),
-        body: Container(
-          child: FutureBuilder<List<Show>>(
-            future: futureShowList,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                print(snapshot.data![0]);
-                return ListView(
-                  children: List.generate(
-                    snapshot.data!.length,
-                    (index) => ShowCard(snapshot.data![index]),
-                  ),
-                );
-                return Text(snapshot.data![0].title);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
+    return Container(
+      child: FutureBuilder<List<Show>>(
+        future: futureShowList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data![0]);
+            return ListView(
+              children: List.generate(
+                snapshot.data!.length,
+                (index) => ShowCard(snapshot.data![index]),
+              ),
+            );
+            return Text(snapshot.data![0].title);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
 
-              // By default, show a loading spinner.
-              return Center(child: CircularProgressIndicator());
-            },
-          ),
-        ),
+          // By default, show a loading spinner.
+          return Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

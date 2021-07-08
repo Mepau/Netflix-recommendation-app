@@ -22,9 +22,7 @@ class _QueryFormState extends State<QueryForm> {
         body: SingleChildScrollView(
           child: Container(
             child: Column(
-              children: [
-                GenresPicker(),
-              ],
+              children: [GenresPicker()],
             ),
           ),
         ),

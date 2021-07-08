@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import "./widgets/query_form.dart";
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import "./widgets/genres_picker.dart";
+import "./screens/query_screen.dart";
 
 import 'dart:developer';
 import 'dart:convert';
@@ -16,8 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: QueryForm(),
+    return MaterialApp(
+      home: QueryScreen(),
     );
   }
 }
