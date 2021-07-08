@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "./widgets/show_lister.dart";
+import "./widgets/query_form.dart";
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "./widgets/genres_picker.dart";
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GenresPicker(),
+      child: QueryForm(),
     );
   }
 }
