@@ -109,6 +109,7 @@ class _GenresPickerState extends State<GenresPicker> {
                                             _selectedGenres.add(selection);
                                           });
                                           setOuterState(() {});
+                                          callback(_selectedGenres);
                                         },
                                       ),
                                       Text("Selected Genres:"),
@@ -133,6 +134,7 @@ class _GenresPickerState extends State<GenresPicker> {
                                                         _selectedGenres[index]);
                                                   });
                                                   setOuterState(() {});
+                                                  callback(_selectedGenres);
                                                 },
                                                 child: Text(
                                                     _selectedGenres[index]
@@ -171,6 +173,7 @@ class _GenresPickerState extends State<GenresPicker> {
                                                               .data![index]);
                                                     });
                                                     setOuterState(() {});
+                                                    callback(_selectedGenres);
                                                   } else {
                                                     setInnerState(() {
                                                       _selectedGenres.remove(
@@ -178,6 +181,7 @@ class _GenresPickerState extends State<GenresPicker> {
                                                               .data![index]);
                                                     });
                                                     setOuterState(() {});
+                                                    callback(_selectedGenres);
                                                   }
                                                 },
                                                 child: Text(

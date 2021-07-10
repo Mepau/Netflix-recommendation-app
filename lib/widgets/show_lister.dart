@@ -26,7 +26,6 @@ class _ShowListerState extends State<ShowLister> {
         future: futureShowList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data![0]);
             return ListView(
               children: List.generate(
                 snapshot.data!.length,

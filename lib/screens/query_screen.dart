@@ -13,11 +13,13 @@ class QueryScreen extends StatefulWidget {
 class _QueryScreenState extends State<QueryScreen> {
   List<Genre> _selectedGenres = [];
 
-  set list(List<Genre> value) => setState(() => _selectedGenres = value);
+  set list(List<Genre> value) => setState(() {
+        _selectedGenres = value;
+        print(_selectedGenres[0].name);
+      });
 
   @override
   Widget build(BuildContext context) {
-    print(_selectedGenres);
     return Scaffold(
       appBar: AppBar(
         title: Text("Hello"),
@@ -47,35 +49,3 @@ class _QueryScreenState extends State<QueryScreen> {
     );
   }
 }
-
-//class QueryScreen extends StatelessWidget {
-//  const QueryScreen({Key? key}) : super(key: key);
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    print(key);
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text("Hello"),
-//      ),
-//      body: SingleChildScrollView(
-//        child: Container(
-//          child: Column(
-//            children: [
-//              GenresPicker(),
-//              ElevatedButton(
-//                onPressed: () {
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(builder: (context) => ResultsScreen()),
-//                  );
-//                },
-//                child: Text("Submit"),
-//              )
-//            ],
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}

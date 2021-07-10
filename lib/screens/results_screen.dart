@@ -6,7 +6,6 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(key);
     return Scaffold(
       appBar: AppBar(
         title: Text("Hello"),
