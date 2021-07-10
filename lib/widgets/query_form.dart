@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import "./genres_picker.dart";
 
 class QueryForm extends StatefulWidget {
+  final ListCallback callback;
+  QueryForm({required this.callback});
+
   @override
-  _QueryFormState createState() => _QueryFormState();
+  _QueryFormState createState() => _QueryFormState(callback: callback);
 }
 
 class _QueryFormState extends State<QueryForm> {
+  final ListCallback callback;
+  _QueryFormState({required this.callback});
+
   @override
   void initState() {
     super.initState();
@@ -14,18 +20,11 @@ class _QueryFormState extends State<QueryForm> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Hello"),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [GenresPicker()],
-            ),
-          ),
-        ),
+    return Container(
+      child: Column(
+        children: [
+          GenresPicker(callback: callback),
+        ],
       ),
     );
   }

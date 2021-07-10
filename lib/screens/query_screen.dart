@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_recommend_app/widgets/query_form.dart';
 import "../widgets/genres_picker.dart";
 import "./results_screen.dart";
 import "../models/genre.dart";
@@ -15,11 +16,13 @@ class _QueryScreenState extends State<QueryScreen> {
 
   set list(List<Genre> value) => setState(() {
         _selectedGenres = value;
-        print(_selectedGenres[0].name);
       });
 
   @override
   Widget build(BuildContext context) {
+    List.generate(
+        _selectedGenres.length, (index) => print(_selectedGenres[index].name));
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Hello"),
@@ -28,7 +31,7 @@ class _QueryScreenState extends State<QueryScreen> {
         child: Container(
           child: Column(
             children: [
-              GenresPicker(
+              QueryForm(
                   callback: (val) => setState(() => _selectedGenres = val)),
               ElevatedButton(
                 onPressed: () {
@@ -39,9 +42,6 @@ class _QueryScreenState extends State<QueryScreen> {
                 },
                 child: Text("Submit"),
               ),
-              _selectedGenres.length > 0
-                  ? Text(_selectedGenres[0].name)
-                  : Text("hello"),
             ],
           ),
         ),
