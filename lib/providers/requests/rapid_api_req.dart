@@ -4,17 +4,26 @@ import "../../models/show.dart";
 import "../../models/genre.dart";
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-final queryParameters = {
+final queryParameters1 = {
+  "genrelist": '83, 5505',
   "start_year": '1972',
   "orderby": 'rating',
   "audiosubtitle_andor": 'and',
   "limit": '100',
   "subtitle": 'english',
-  "countrylist": '78,46',
+  "countrylist": '',
   "audio": 'english',
   "country_andorunique": 'unique',
   "offset": '0',
-  "end_year": '2019'
+  "end_year": '2021'
+};
+
+var queryParameters2 = {
+  "genrelist": '11,',
+  "orderby": 'rating',
+  "audiosubtitle_andor": 'and',
+  "country_andorunique": 'and',
+  "audio": 'english'
 };
 
 Map<String, String> get headers => {
@@ -24,8 +33,12 @@ Map<String, String> get headers => {
       'x-rapidapi-host': 'unogsng.p.rapidapi.com'
     };
 
-Future<List<Show>> fetchShows() async {
-  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters);
+Future<List<Show>> fetchShows(selectedGenres) async {
+  print(queryParameters2["genrelist"]);
+  queryParameters1["genrelist"] = "5505";
+  print(queryParameters2["genrelist"]);
+
+  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters1);
   var response = await http.get(url, headers: headers);
   Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 

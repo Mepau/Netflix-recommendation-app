@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import "../providers/requests/rapid_api_req.dart";
 import "../models/show.dart";
 import "./show_card.dart";
+import "../models/genre.dart";
 
 class ShowLister extends StatefulWidget {
-  const ShowLister({Key? key}) : super(key: key);
+  final List<Genre> selectedGenres;
+  ShowLister({Key? key, required this.selectedGenres}) : super(key: key);
 
   @override
-  _ShowListerState createState() => _ShowListerState();
+  _ShowListerState createState() => _ShowListerState(selectedGenres);
 }
 
 class _ShowListerState extends State<ShowLister> {
   late Future<List<Show>> futureShowList;
+  final List<Genre> _selectedGenres;
+  _ShowListerState(this._selectedGenres);
 
   @override
   void initState() {
     super.initState();
-    futureShowList = fetchShows();
+
+    futureShowList = fetchShows(_selectedGenres);
   }
 
   @override
