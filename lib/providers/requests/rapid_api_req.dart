@@ -20,11 +20,12 @@ final queryParameters1 = {
 };
 
 var queryParameters2 = {
-  "genrelist": '11,',
+  "genrelist": '',
   "orderby": 'rating',
   "audiosubtitle_andor": 'and',
   "country_andorunique": 'and',
-  "audio": 'english'
+  "audio": 'english',
+  "countrylist": '',
 };
 
 Map<String, String> get headers => {
@@ -34,12 +35,28 @@ Map<String, String> get headers => {
       'x-rapidapi-host': 'unogsng.p.rapidapi.com'
     };
 
-Future<List<Show>> fetchShows(selectedGenres) async {
-  print(queryParameters2["genrelist"]);
-  queryParameters1["genrelist"] = "5505";
-  print(queryParameters2["genrelist"]);
+Future<List<Show>> fetchShows(
+    List<Genre> selectedGenres, List<Country> selectedCountries) async {
+  List.generate(selectedGenres.length, (index) {
+    queryParameters2["genrelist"] =
+        queryParameters2["genrelist"]! + selectedGenres[index].id.toString();
+    index < selectedGenres.length - 1
+        ? queryParameters2["genrelist"] = queryParameters2["genrelist"]! + ","
+        : null;
+  });
 
-  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters1);
+  print(queryParameters2);
+
+  //List.generate(selectedCountries.length, (index) {
+  //  queryParameters2["countrylist"] =
+  //      queryParameters2["countrylist"]! + selectedGenres[index].id.toString();
+  //  index < selectedGenres.length - 1
+  //      ? queryParameters2["countrylist"] =
+  //          queryParameters2["countrylist"]! + ","
+  //      : null;
+  //});
+
+  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters2);
   var response = await http.get(url, headers: headers);
   Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 

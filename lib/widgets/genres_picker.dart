@@ -121,10 +121,11 @@ class _GenresPickerState extends State<GenresPicker> {
                                             options: _selectedGenres,
                                             addCallback: (val) =>
                                                 setInnerState(() => {}),
-                                            removeCallback: (val) =>
-                                                setInnerState(() =>
-                                                    _selectedGenres
-                                                        .remove(val)),
+                                            removeCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedGenres.remove(val));
+                                              callback(_selectedGenres);
+                                            },
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
                                             selectedOptions: _selectedGenres,
@@ -134,12 +135,16 @@ class _GenresPickerState extends State<GenresPicker> {
                                         Expanded(
                                           child: GridPicker(
                                             options: snapshot.data!,
-                                            addCallback: (val) => setInnerState(
-                                                () => _selectedGenres.add(val)),
-                                            removeCallback: (val) =>
-                                                setInnerState(() =>
-                                                    _selectedGenres
-                                                        .remove(val)),
+                                            addCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedGenres.add(val));
+                                              callback(_selectedGenres);
+                                            },
+                                            removeCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedGenres.remove(val));
+                                              callback(_selectedGenres);
+                                            },
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
                                             selectedOptions: _selectedGenres,

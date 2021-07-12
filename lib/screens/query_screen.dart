@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_recommend_app/widgets/query_form.dart';
 import "../models/genre.dart";
 import "../models/country.dart";
+import "../models/result_args.dart";
 
 class QueryScreen extends StatefulWidget {
   const QueryScreen({Key? key}) : super(key: key);
@@ -39,7 +40,9 @@ class _QueryScreenState extends State<QueryScreen> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, "/results",
-                      arguments: _selectedGenres);
+                      arguments: ResultArgs(
+                          genreList: _selectedGenres,
+                          countryList: _selectedCountries));
                 },
                 child: Text("Submit"),
               ),

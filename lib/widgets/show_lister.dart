@@ -21,7 +21,7 @@ class _ShowListerState extends State<ShowLister> {
   void initState() {
     super.initState();
 
-    futureShowList = fetchShows(_selectedGenres);
+    futureShowList = fetchShows(_selectedGenres, []);
   }
 
   @override
