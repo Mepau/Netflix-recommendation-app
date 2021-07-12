@@ -14,7 +14,9 @@ class ResultsScreen extends StatelessWidget {
         title: Text("Hello"),
       ),
       body: Center(
-        child: ShowLister(selectedGenres: args.genreList),
+        child: ShowLister(
+            selectedGenres: args.genreList,
+            selectedCountries: args.countryList),
       ),
     );
   }

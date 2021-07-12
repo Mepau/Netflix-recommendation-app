@@ -39,10 +39,13 @@ class _QueryScreenState extends State<QueryScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/results",
-                      arguments: ResultArgs(
-                          genreList: _selectedGenres,
-                          countryList: _selectedCountries));
+                  Navigator.pushNamed(
+                    context,
+                    "/results",
+                    arguments: ResultArgs(
+                        genreList: _selectedGenres,
+                        countryList: _selectedCountries),
+                  );
                 },
                 child: Text("Submit"),
               ),

@@ -76,21 +76,21 @@ class _GenresPickerState extends State<GenresPicker> {
                                               return const Iterable<
                                                   Genre>.empty();
                                             }
-                                            setInnerState(() {
-                                              snapshot.data!
-                                                  .where((Genre option) {
-                                                return option.name
-                                                        .toLowerCase()
-                                                        .contains(textEditingValue
-                                                            .text
-                                                            .toLowerCase()) ||
-                                                    option.name
-                                                        .toLowerCase()
-                                                        .startsWith(
-                                                            textEditingValue
-                                                                .text);
-                                              }).toList();
-                                            });
+                                            //setInnerState(() {
+                                            //  snapshot.data!
+                                            //      .where((Genre option) {
+                                            //    return option.name
+                                            //            .toLowerCase()
+                                            //            .contains(textEditingValue
+                                            //                .text
+                                            //                .toLowerCase()) ||
+                                            //        option.name
+                                            //            .toLowerCase()
+                                            //            .startsWith(
+                                            //                textEditingValue
+                                            //                    .text);
+                                            //  }).toList();
+                                            //});
                                             return snapshot.data!.where(
                                               (Genre option) {
                                                 return option.name

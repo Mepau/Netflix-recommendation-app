@@ -6,13 +6,13 @@ import '../../models/country.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final queryParameters1 = {
-  "genrelist": '83, 5505',
+  "genrelist": '',
   "start_year": '1972',
   "orderby": 'rating',
   "audiosubtitle_andor": 'and',
   "limit": '100',
   "subtitle": 'english',
-  "countrylist": '78,46',
+  "countrylist": '',
   "audio": 'english',
   "country_andorunique": 'unique',
   "offset": '0',
@@ -37,26 +37,28 @@ Map<String, String> get headers => {
 
 Future<List<Show>> fetchShows(
     List<Genre> selectedGenres, List<Country> selectedCountries) async {
+  queryParameters1["genrelist"] = "";
+  queryParameters1["countrylist"] = "";
   List.generate(selectedGenres.length, (index) {
-    queryParameters2["genrelist"] =
-        queryParameters2["genrelist"]! + selectedGenres[index].id.toString();
+    queryParameters1["genrelist"] =
+        queryParameters1["genrelist"]! + selectedGenres[index].id.toString();
     index < selectedGenres.length - 1
-        ? queryParameters2["genrelist"] = queryParameters2["genrelist"]! + ","
+        ? queryParameters1["genrelist"] = queryParameters1["genrelist"]! + ","
         : null;
   });
 
-  print(queryParameters2);
+  List.generate(selectedCountries.length, (index) {
+    queryParameters1["countrylist"] = queryParameters1["countrylist"]! +
+        selectedCountries[index].id.toString();
+    index < selectedCountries.length - 1
+        ? queryParameters1["countrylist"] =
+            queryParameters1["countrylist"]! + ","
+        : null;
+  });
 
-  //List.generate(selectedCountries.length, (index) {
-  //  queryParameters2["countrylist"] =
-  //      queryParameters2["countrylist"]! + selectedGenres[index].id.toString();
-  //  index < selectedGenres.length - 1
-  //      ? queryParameters2["countrylist"] =
-  //          queryParameters2["countrylist"]! + ","
-  //      : null;
-  //});
+  print(queryParameters1);
 
-  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters2);
+  var url = Uri.https("unogsng.p.rapidapi.com", '/search', queryParameters1);
   var response = await http.get(url, headers: headers);
   Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 

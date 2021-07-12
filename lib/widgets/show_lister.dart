@@ -3,25 +3,31 @@ import "../providers/requests/rapid_api_req.dart";
 import "../models/show.dart";
 import "./show_card.dart";
 import "../models/genre.dart";
+import "../models/country.dart";
 
 class ShowLister extends StatefulWidget {
   final List<Genre> selectedGenres;
-  ShowLister({Key? key, required this.selectedGenres}) : super(key: key);
+  final List<Country> selectedCountries;
+  ShowLister(
+      {Key? key, required this.selectedGenres, required this.selectedCountries})
+      : super(key: key);
 
   @override
-  _ShowListerState createState() => _ShowListerState(selectedGenres);
+  _ShowListerState createState() =>
+      _ShowListerState(selectedGenres, selectedCountries);
 }
 
 class _ShowListerState extends State<ShowLister> {
   late Future<List<Show>> futureShowList;
   final List<Genre> _selectedGenres;
-  _ShowListerState(this._selectedGenres);
+  final List<Country> _selectedCountries;
+  _ShowListerState(this._selectedGenres, this._selectedCountries);
 
   @override
   void initState() {
     super.initState();
 
-    futureShowList = fetchShows(_selectedGenres, []);
+    futureShowList = fetchShows(_selectedGenres, _selectedCountries);
   }
 
   @override

@@ -77,21 +77,21 @@ class _CountriesPickerState extends State<CountriesPicker> {
                                               return const Iterable<
                                                   Country>.empty();
                                             }
-                                            setInnerState(() {
-                                              snapshot.data!
-                                                  .where((Country option) {
-                                                return option.name
-                                                        .toLowerCase()
-                                                        .contains(textEditingValue
-                                                            .text
-                                                            .toLowerCase()) ||
-                                                    option.name
-                                                        .toLowerCase()
-                                                        .startsWith(
-                                                            textEditingValue
-                                                                .text);
-                                              }).toList();
-                                            });
+                                            //setInnerState(() {
+                                            //  snapshot.data!
+                                            //      .where((Country option) {
+                                            //    return option.name
+                                            //            .toLowerCase()
+                                            //            .contains(textEditingValue
+                                            //                .text
+                                            //                .toLowerCase()) ||
+                                            //        option.name
+                                            //            .toLowerCase()
+                                            //            .startsWith(
+                                            //                textEditingValue
+                                            //                    .text);
+                                            //  }).toList();
+                                            //});
                                             return snapshot.data!.where(
                                               (Country option) {
                                                 return option.name
@@ -122,10 +122,12 @@ class _CountriesPickerState extends State<CountriesPicker> {
                                             options: _selectedCountries,
                                             addCallback: (val) =>
                                                 setInnerState(() => {}),
-                                            removeCallback: (val) =>
-                                                setInnerState(() =>
-                                                    _selectedCountries
-                                                        .remove(val)),
+                                            removeCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedCountries
+                                                      .remove(val));
+                                              callback(_selectedCountries);
+                                            },
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
                                             selectedOptions: _selectedCountries,
@@ -135,13 +137,17 @@ class _CountriesPickerState extends State<CountriesPicker> {
                                         Expanded(
                                           child: GridPicker(
                                             options: snapshot.data!,
-                                            addCallback: (val) => setInnerState(
-                                                () => _selectedCountries
-                                                    .add(val)),
-                                            removeCallback: (val) =>
-                                                setInnerState(() =>
-                                                    _selectedCountries
-                                                        .remove(val)),
+                                            addCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedCountries.add(val));
+                                              callback(_selectedCountries);
+                                            },
+                                            removeCallback: (val) {
+                                              setInnerState(() =>
+                                                  _selectedCountries
+                                                      .remove(val));
+                                              callback(_selectedCountries);
+                                            },
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
                                             selectedOptions: _selectedCountries,
