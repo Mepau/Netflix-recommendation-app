@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import "../../models/show.dart";
 import "../../models/genre.dart";
-import "../../models/countries.dart";
+import '../../models/country.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final queryParameters1 = {

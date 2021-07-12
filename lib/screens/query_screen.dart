@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_recommend_app/widgets/query_form.dart';
 import "../models/genre.dart";
+import "../models/country.dart";
 
 class QueryScreen extends StatefulWidget {
   const QueryScreen({Key? key}) : super(key: key);
@@ -11,9 +12,14 @@ class QueryScreen extends StatefulWidget {
 
 class _QueryScreenState extends State<QueryScreen> {
   List<Genre> _selectedGenres = [];
+  List<Country> _selectedCountries = [];
 
-  set list(List<Genre> value) => setState(() {
+  set genrelist(List<Genre> value) => setState(() {
         _selectedGenres = value;
+      });
+
+  set coutrylist(List<Country> value) => setState(() {
+        _selectedCountries = value;
       });
 
   @override
@@ -27,7 +33,9 @@ class _QueryScreenState extends State<QueryScreen> {
           child: Column(
             children: [
               QueryForm(
-                  callback: (val) => setState(() => _selectedGenres = val)),
+                setGenres: (val) => setState(() => _selectedGenres = val),
+                setCountries: (val) => setState(() => _selectedCountries = val),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, "/results",

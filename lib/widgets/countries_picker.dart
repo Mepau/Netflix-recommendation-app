@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_recommend_app/widgets/grid_picker.dart';
-import "../models/genre.dart";
+import "../models/country.dart";
 import "../providers/requests/rapid_api_req.dart";
 
-typedef void ListGenreCallback(List<Genre> val);
+typedef void ListCountriesCallback(List<Country> val);
 
-class GenresPicker extends StatefulWidget {
-  final ListGenreCallback callback;
-  GenresPicker({required this.callback});
+class CountriesPicker extends StatefulWidget {
+  final ListCountriesCallback callback;
+  CountriesPicker({required this.callback});
 
   @override
-  _GenresPickerState createState() => _GenresPickerState(callback: callback);
+  _CountriesPickerState createState() =>
+      _CountriesPickerState(callback: callback);
 }
 
-class _GenresPickerState extends State<GenresPicker> {
-  final ListGenreCallback callback;
-  _GenresPickerState({required this.callback});
+class _CountriesPickerState extends State<CountriesPicker> {
+  final ListCountriesCallback callback;
+  _CountriesPickerState({required this.callback});
 
-  List<Genre> _selectedGenres = [];
+  List<Country> _selectedCountries = [];
 
   @override
   void initState() {
@@ -26,19 +27,19 @@ class _GenresPickerState extends State<GenresPicker> {
 
   addGenre(genre) {
     setState(() {
-      _selectedGenres.add(genre);
+      _selectedCountries.add(genre);
     });
   }
 
-  static String _displayStringForOption(Genre option) => option.name;
+  static String _displayStringForOption(Country option) => option.name;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(20),
-      child: FutureBuilder<List<Genre>>(
-        future: fetchGenres(),
+      child: FutureBuilder<List<Country>>(
+        future: fetchCountries(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return StatefulBuilder(
@@ -67,18 +68,18 @@ class _GenresPickerState extends State<GenresPicker> {
                                   builder: (context, setInnerState) {
                                     return Column(
                                       children: <Widget>[
-                                        Autocomplete<Genre>(
+                                        Autocomplete<Country>(
                                           displayStringForOption:
                                               _displayStringForOption,
                                           optionsBuilder: (TextEditingValue
                                               textEditingValue) {
                                             if (textEditingValue.text == "") {
                                               return const Iterable<
-                                                  Genre>.empty();
+                                                  Country>.empty();
                                             }
                                             setInnerState(() {
                                               snapshot.data!
-                                                  .where((Genre option) {
+                                                  .where((Country option) {
                                                 return option.name
                                                         .toLowerCase()
                                                         .contains(textEditingValue
@@ -92,7 +93,7 @@ class _GenresPickerState extends State<GenresPicker> {
                                               }).toList();
                                             });
                                             return snapshot.data!.where(
-                                              (Genre option) {
+                                              (Country option) {
                                                 return option.name
                                                         .toLowerCase()
                                                         .contains(textEditingValue
@@ -106,43 +107,44 @@ class _GenresPickerState extends State<GenresPicker> {
                                               },
                                             );
                                           },
-                                          onSelected: (Genre selection) {
+                                          onSelected: (Country selection) {
                                             setInnerState(() {
-                                              _selectedGenres.add(selection);
+                                              _selectedCountries.add(selection);
                                             });
                                             setOuterState(() {});
-                                            callback(_selectedGenres);
+                                            callback(_selectedCountries);
                                           },
                                         ),
-                                        Text("Selected Genres:"),
+                                        Text("Selected Countries:"),
                                         SizedBox(
                                           height: 60,
                                           child: GridPicker(
-                                            options: _selectedGenres,
+                                            options: _selectedCountries,
                                             addCallback: (val) =>
                                                 setInnerState(() => {}),
                                             removeCallback: (val) =>
                                                 setInnerState(() =>
-                                                    _selectedGenres
+                                                    _selectedCountries
                                                         .remove(val)),
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
-                                            selectedOptions: _selectedGenres,
+                                            selectedOptions: _selectedCountries,
                                           ),
                                         ),
-                                        Text("Genres:"),
+                                        Text("Countries:"),
                                         Expanded(
                                           child: GridPicker(
                                             options: snapshot.data!,
                                             addCallback: (val) => setInnerState(
-                                                () => _selectedGenres.add(val)),
+                                                () => _selectedCountries
+                                                    .add(val)),
                                             removeCallback: (val) =>
                                                 setInnerState(() =>
-                                                    _selectedGenres
+                                                    _selectedCountries
                                                         .remove(val)),
                                             refreshOuterState: () =>
                                                 setOuterState(() => {}),
-                                            selectedOptions: _selectedGenres,
+                                            selectedOptions: _selectedCountries,
                                           ),
                                         ),
                                       ],
@@ -153,7 +155,7 @@ class _GenresPickerState extends State<GenresPicker> {
                             );
                           },
                           child: Text(
-                            'Select Genres',
+                            'Select Countries',
                             style: TextStyle(
                                 color: Colors.grey[900],
                                 fontWeight: FontWeight.w600,
@@ -174,11 +176,11 @@ class _GenresPickerState extends State<GenresPicker> {
                                     childAspectRatio: 4 / 2,
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10),
-                            itemCount: _selectedGenres.length,
+                            itemCount: _selectedCountries.length,
                             itemBuilder: (BuildContext ctx, index) {
                               return Container(
                                 alignment: Alignment.center,
-                                child: Text(_selectedGenres[index].name),
+                                child: Text(_selectedCountries[index].name),
                                 decoration: BoxDecoration(
                                     color: Colors.blue[100],
                                     borderRadius: BorderRadius.circular(15)),

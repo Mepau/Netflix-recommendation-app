@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import "./genres_picker.dart";
+import "./countries_picker.dart";
 
 class QueryForm extends StatefulWidget {
-  final ListCallback callback;
-  QueryForm({required this.callback});
+  final ListGenreCallback setGenres;
+  final ListCountriesCallback setCountries;
+  QueryForm({required this.setGenres, required this.setCountries});
 
   @override
-  _QueryFormState createState() => _QueryFormState(callback: callback);
+  _QueryFormState createState() =>
+      _QueryFormState(setGenres: setGenres, setCountries: setCountries);
 }
 
 class _QueryFormState extends State<QueryForm> {
-  final ListCallback callback;
-  _QueryFormState({required this.callback});
+  final ListGenreCallback setGenres;
+  final ListCountriesCallback setCountries;
+  _QueryFormState({required this.setGenres, required this.setCountries});
 
   @override
   void initState() {
@@ -23,7 +27,8 @@ class _QueryFormState extends State<QueryForm> {
     return Container(
       child: Column(
         children: [
-          GenresPicker(callback: callback),
+          GenresPicker(callback: setGenres),
+          CountriesPicker(callback: setCountries),
         ],
       ),
     );
