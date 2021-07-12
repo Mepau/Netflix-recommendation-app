@@ -11,7 +11,7 @@ final queryParameters1 = {
   "audiosubtitle_andor": 'and',
   "limit": '100',
   "subtitle": 'english',
-  "countrylist": '',
+  "countrylist": '78,46',
   "audio": 'english',
   "country_andorunique": 'unique',
   "offset": '0',

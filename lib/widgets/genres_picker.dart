@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_recommend_app/widgets/grid_picker.dart';
 import "../models/genre.dart";
 import "../providers/requests/rapid_api_req.dart";
 
@@ -115,89 +116,30 @@ class _GenresPickerState extends State<GenresPicker> {
                                       Text("Selected Genres:"),
                                       SizedBox(
                                         height: 60,
-                                        child: GridView.builder(
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                                  maxCrossAxisExtent: 100,
-                                                  childAspectRatio: 4 / 2,
-                                                  crossAxisSpacing: 10,
-                                                  mainAxisSpacing: 10),
-                                          itemCount: _selectedGenres.length,
-                                          itemBuilder:
-                                              (BuildContext ctx, index) {
-                                            return Container(
-                                              alignment: Alignment.center,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setInnerState(() {
-                                                    _selectedGenres.remove(
-                                                        _selectedGenres[index]);
-                                                  });
-                                                  setOuterState(() {});
-                                                  callback(_selectedGenres);
-                                                },
-                                                child: Text(
-                                                    _selectedGenres[index]
-                                                        .name),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.blue[200],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                            );
-                                          },
+                                        child: GridPicker(
+                                          options: _selectedGenres,
+                                          addCallback: (val) =>
+                                              setInnerState(() => {}),
+                                          removeCallback: (val) =>
+                                              setInnerState(() =>
+                                                  _selectedGenres.remove(val)),
+                                          refreshOuterState: () =>
+                                              setOuterState(() => {}),
+                                          selectedOptions: _selectedGenres,
                                         ),
                                       ),
                                       Text("Genres:"),
                                       Expanded(
-                                        child: GridView.builder(
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                                  maxCrossAxisExtent: 100,
-                                                  childAspectRatio: 4 / 2,
-                                                  crossAxisSpacing: 10,
-                                                  mainAxisSpacing: 10),
-                                          itemCount: snapshot.data!.length,
-                                          itemBuilder:
-                                              (BuildContext ctx, index) {
-                                            return Container(
-                                              alignment: Alignment.center,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  if (!_selectedGenres.contains(
-                                                      snapshot.data![index])) {
-                                                    setInnerState(() {
-                                                      _selectedGenres.add(
-                                                          snapshot
-                                                              .data![index]);
-                                                    });
-                                                    setOuterState(() {});
-                                                    callback(_selectedGenres);
-                                                  } else {
-                                                    setInnerState(() {
-                                                      _selectedGenres.remove(
-                                                          snapshot
-                                                              .data![index]);
-                                                    });
-                                                    setOuterState(() {});
-                                                    callback(_selectedGenres);
-                                                  }
-                                                },
-                                                child: Text(
-                                                    snapshot.data![index].name),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  color: _selectedGenres
-                                                          .contains(snapshot
-                                                              .data![index])
-                                                      ? Colors.blue[200]
-                                                      : Colors.blue[50],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                            );
-                                          },
+                                        child: GridPicker(
+                                          options: snapshot.data!,
+                                          addCallback: (val) => setInnerState(
+                                              () => _selectedGenres.add(val)),
+                                          removeCallback: (val) =>
+                                              setInnerState(() =>
+                                                  _selectedGenres.remove(val)),
+                                          refreshOuterState: () =>
+                                              setOuterState(() => {}),
+                                          selectedOptions: _selectedGenres,
                                         ),
                                       ),
                                     ],
