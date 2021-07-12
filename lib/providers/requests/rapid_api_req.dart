@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import "../../models/show.dart";
 import "../../models/genre.dart";
+import "../../models/countries.dart";
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final queryParameters1 = {
@@ -66,5 +67,21 @@ Future<List<Genre>> fetchGenres() async {
     return genresList;
   } else {
     throw Exception("Unable to load genres from rapid api");
+  }
+}
+
+Future<List<Country>> fetchCountries() async {
+  var url = Uri.https("unogsng.p.rapidapi.com", '/countries');
+  var response = await http.get(url, headers: headers);
+  Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+  if (response.statusCode == 200) {
+    List<Country> countriesList = [];
+    for (var country in jsonResponse["results"]) {
+      countriesList.add(Country.fromJson(country));
+    }
+    return countriesList;
+  } else {
+    throw Exception("Unable to load countries from rapid api");
   }
 }
